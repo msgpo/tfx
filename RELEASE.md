@@ -45,6 +45,7 @@
     pre-processing fn.
 *   Supported custom extractors in Evaluator.
 *   Deprecated tensorflow dependency from MLMD python client.
+*   Use TFXIO and batched extractors by default in Evaluator.
 
 ## Bug fixes and other changes
 *   Added Tuner component to Iris e2e example.
