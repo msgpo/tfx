@@ -12,7 +12,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-"""E2E test using kubeflow orchestrator for taxi template."""
+"""E2E test using kubeflow orchestrator for iris template."""
 
 import datetime
 import os
@@ -31,7 +31,7 @@ import yaml
 from google.cloud import storage
 
 
-class TaxiTemplateKubeflowE2ETest(test_utils.BaseEndToEndTest):
+class IrisTemplateKubeflowE2ETest(test_utils.BaseEndToEndTest):
 
   _POLLING_INTERVAL_IN_SECONDS = 10
   _MAX_POLLING_COUNT = 20 * 6  # 20 min.
@@ -61,7 +61,7 @@ class TaxiTemplateKubeflowE2ETest(test_utils.BaseEndToEndTest):
   def setUp(self):
     super().setUp()
     random_id = orchestration_test_utils.random_id()
-    self._pipeline_name = 'taxi-template-kubeflow-e2e-test-' + random_id
+    self._pipeline_name = 'iris-template-kubeflow-e2e-test-' + random_id
     logging.info('Pipeline: %s', self._pipeline_name)
     self._endpoint = self._get_endpoint()
     self._kfp_client = kfp.Client(host=self._endpoint)
@@ -70,13 +70,13 @@ class TaxiTemplateKubeflowE2ETest(test_utils.BaseEndToEndTest):
     self._base_container_image = '{}:{}'.format(self._BASE_CONTAINER_IMAGE,
                                                 random_id)
     self._target_container_image = 'gcr.io/{}/{}:{}'.format(
-        self._GCP_PROJECT_ID, 'taxi-template-kubeflow-e2e-test', random_id)
+        self._GCP_PROJECT_ID, 'iris-template-kubeflow-e2e-test', random_id)
 
     self._prepare_base_container_image()
     self._prepare_skaffold()
 
   def tearDown(self):
-    super(TaxiTemplateKubeflowE2ETest, self).tearDown()
+    super(IrisTemplateKubeflowE2ETest, self).tearDown()
     self._cleanup_kfp()
 
   def _cleanup_with_retry(self, method):
@@ -242,7 +242,7 @@ class TaxiTemplateKubeflowE2ETest(test_utils.BaseEndToEndTest):
                          m['labels'][telemetry_utils.LABEL_KFP_SDK_ENV])
 
   def testPipeline(self):
-    self._copyTemplate('taxi')
+    self._copyTemplate('iris')
     os.environ['KUBEFLOW_HOME'] = os.path.join(self._temp_dir, 'kubeflow')
 
     # Uncomment all variables in config.

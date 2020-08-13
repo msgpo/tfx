@@ -150,7 +150,7 @@ class BaseEndToEndTest(tf.test.TestCase):
     io_utils.write_string_file(path, ''.join(result))
     return path
 
-  def _copyTemplate(self):
+  def _copyTemplate(self, model):
     result = self._runCli([
         'template',
         'copy',
@@ -159,7 +159,7 @@ class BaseEndToEndTest(tf.test.TestCase):
         '--destination_path',
         self._project_dir,
         '--model',
-        'taxi',
+        model,
     ])
     self.assertEqual(0, result.exit_code)
-    self.assertIn('Copying taxi pipeline template', result.output)
+    self.assertIn('Copying {} pipeline template'.format(model), result.output)

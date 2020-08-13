@@ -65,6 +65,8 @@
     python (2.7/3.5/3.6) is not available anymore in `tensorflow/tfx` images
     on docker hub. Virtualenv is not used anymore.
 *   Depends on `pyarrow>=0.17,<0.18`.
+*   Added a new template, 'iris' which is simple subset of existing iris
+    examples.
 
 ## Breaking changes
 
